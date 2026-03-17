@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Convite Lambretas 2026</title>
+  <title>Barrocas Desfeito</title>
   <style>
     :root {
       --bg: #f4f7fb;
@@ -55,10 +55,12 @@
 
     .form {
       display: grid;
+      grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
     input {
+      display: none;
       width: 100%;
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -94,6 +96,18 @@
       font-weight: 600;
     }
 
+    .wrong {
+      display: none;
+      margin-top: 16px;
+      padding: 12px;
+      border: 1px solid #fca5a5;
+      border-radius: 10px;
+      background: #fef2f2;
+      color: #dc2626;
+      text-align: center;
+      font-weight: 600;
+    }
+
     /* Secao pronta para futura expansao com puzzles, imagens ou video. */
     .future-content {
       margin-top: 18px;
@@ -106,16 +120,20 @@
 </head>
 <body>
   <main class="container">
-    <h1>Convite Lambretas 2026</h1>
-    <p>Se estás aqui… já começaste!</p>
+    <h1>Convite para os desfeitos</h1>
+    <p id="questionText">O Barrocas é desfeito?</p>
 
-    <div class="form">
-      <input id="codeInput" type="text" placeholder="Introduz o código" aria-label="Código de convite">
-      <button id="enterButton" type="button">Entrar</button>
+    <div class="form" id="questionButtons">
+      <button id="noButton" type="button">Não</button>
+      <button id="yesButton" type="button">Sim</button>
     </div>
 
     <div id="successMessage" class="success" role="status" aria-live="polite">
-      Parabéns! Estás convidado para ser animador de Lambretas 🔥
+      Parabéns! Foste convidado para animar Lambretas 🔥
+    </div>
+
+    <div id="wrongMessage" class="wrong" role="status" aria-live="polite">
+      Resposta errada, tenta outra vez!
     </div>
 
     <section class="future-content" id="futureContent">
@@ -124,27 +142,19 @@
   </main>
 
   <script>
-    const codeInput = document.getElementById('codeInput');
-    const enterButton = document.getElementById('enterButton');
+    const noButton = document.getElementById('noButton');
+    const yesButton = document.getElementById('yesButton');
     const successMessage = document.getElementById('successMessage');
+    const wrongMessage = document.getElementById('wrongMessage');
 
-    function validarCodigo() {
-      const codigo = codeInput.value.trim();
+    yesButton.addEventListener('click', function() {
+      successMessage.style.display = 'block';
+      wrongMessage.style.display = 'none';
+    });
 
-      if (codigo === 'LAMBRETAS') {
-        successMessage.style.display = 'block';
-      } else {
-        successMessage.style.display = 'none';
-        alert('Código errado, tenta novamente');
-      }
-    }
-
-    enterButton.addEventListener('click', validarCodigo);
-
-    codeInput.addEventListener('keydown', function (event) {
-      if (event.key === 'Enter') {
-        validarCodigo();
-      }
+    noButton.addEventListener('click', function() {
+      wrongMessage.style.display = 'block';
+      successMessage.style.display = 'none';
     });
   </script>
 </body>
