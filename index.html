@@ -3,158 +3,1261 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barrocas Desfeito</title>
+  <title>Convite Secreto - Lambretas 2026</title>
   <style>
-    :root {
-      --bg: #f4f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --accent: #0f766e;
-      --accent-hover: #115e59;
-      --ok: #166534;
-      --border: #d1d5db;
-    }
-
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
     body {
-      margin: 0;
+      font-family: 'Georgia', serif;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(160deg, #ecfeff, #eff6ff);
-      color: var(--text);
-      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1a3a2a 0%, #2d5a3d 50%, #3d6e4f 100%);
+      color: #e8dcc8;
+      padding: 50px;
+      overflow-x: hidden;
     }
 
     .container {
-      width: 100%;
-      max-width: 520px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      width: 75%;
+      min-height: 100vh;
+      max-width: 800px;
+      background: linear-gradient(180deg, #2d3d2e 0%, #1f2920 100%);
+      border: 3px solid #8b6f47;
+      border-radius: 8px;
+      padding: 30px 40px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(232, 220, 200, 0.1);
+      animation: fadeIn 1.2s ease-in-out;
+      position: relative;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><pattern id="leaves" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse"><text x="10" y="20" font-size="40" opacity="0.05">🍂</text><text x="60" y="60" font-size="35" opacity="0.05">🌿</text><text x="20" y="70" font-size="30" opacity="0.04">🪵</text></pattern></defs><rect width="100" height="100" fill="url(%23leaves)"/></svg>');
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Animações */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    @keyframes glow {
+      0%, 100% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(212, 165, 116, 0.3); }
+      50% { text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 165, 116, 0.6); }
+    }
+
+    .phase {
+      display: none !important;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .phase.active {
+      display: block !important;
     }
 
     h1 {
-      margin-top: 0;
-      margin-bottom: 10px;
-      font-size: 1.5rem;
-      text-align: center;
+      font-size: 3.2em;
+      color: #d4a574;
+      margin-bottom: 25px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 2px;
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    .divider {
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #8b6f47, transparent);
+      margin: 12px auto 15px;
     }
 
     p {
-      margin-top: 0;
-      margin-bottom: 20px;
-      text-align: center;
+      font-size: 1.5em;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      color: #e8dcc8;
+      letter-spacing: 0.5px;
     }
 
-    .form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
+    .text-secondary {
+      font-size: 1.3em;
+      color: #c9b896;
+      margin-top: 20px;
+      margin-bottom: 40px;
     }
 
-    input {
-      display: none;
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 1rem;
+    .button-group {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin: 40px 0;
+      flex-wrap: wrap;
     }
 
     button {
-      border: none;
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 1rem;
-      font-weight: 600;
-      background: var(--accent);
-      color: #ffffff;
+      background: linear-gradient(135deg, #8b6f47 0%, #a0845f 100%);
+      color: #1f2920;
+      border: 2px solid #d4a574;
+      padding: 12px 30px;
+      font-size: 1em;
+      font-weight: bold;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background 0.2s ease;
+      transition: all 0.3s ease;
+      font-family: 'Georgia', serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
 
     button:hover {
-      background: var(--accent-hover);
+      background: linear-gradient(135deg, #a0845f 0%, #b89470 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(212, 165, 116, 0.4);
+      border-color: #e8dcc8;
     }
 
-    .success {
-      display: none;
-      margin-top: 16px;
-      padding: 12px;
-      border: 1px solid #86efac;
-      border-radius: 10px;
-      background: #f0fdf4;
-      color: var(--ok);
+    button:active {
+      transform: translateY(0);
+    }
+
+    /* FASE 1 - Enigma */
+    .phase-1.active {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 90vh;
+    }
+
+    .enigma-icon {
+      font-size: 3.5em;
+      margin: 15px 0;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    /* FASE 2 - Puzzle */
+    .phase-2 {
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    #puzzleStatus {
+      font-size: 0.9em !important;
+      margin-bottom: 10px !important;
+      margin-top: 10px !important;
+    }
+
+    .puzzle-wrapper {
+      position: relative;
+      margin: 15px auto;
+      width: 98%;
+      height: auto;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: visible;
+    }
+    
+
+    .loose-pieces {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 25;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .puzzle-piece {
+      position: fixed;
+      cursor: grab;
+      user-select: none;
+      padding: 0;
+      border: 0;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      background: #1f2920;
+      min-width: 50px;
+      min-height: 50px;
+      z-index: 25;
+      will-change: transform, z-index;
+      pointer-events: auto;
+    }
+
+    .puzzle-piece:hover:not(.locked) {
+      transform: scale(1.08);
+      box-shadow: 0 6px 20px rgba(212, 165, 116, 0.5);
+      border-color: #d4a574;
+    }
+
+    .puzzle-piece.dragging {
+      opacity: 0.9;
+      z-index: 9999;
+      cursor: grabbing;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+    }
+
+    .puzzle-piece.locked {
+      cursor: default;
+      border-color: #5ecc71;
+      opacity: 1;
+      display: none !important;
+      z-index: -1;
+    }
+
+    .puzzle-piece img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: #000;
+    }
+
+    .frame-wrapper {
+      position: relative;
+      z-index: 10;
+      pointer-events: none;
+      margin: 10px auto;
+    }
+
+    .frame {
+      position: relative;
+      background: rgba(0, 0, 0, 0.4);
+      border: 5px solid #d4a574;
+      border-radius: 0px;
+      display: grid;
+      gap: 0px;
+      padding: 0px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(212, 165, 116, 0.1);
+      pointer-events: auto;
+      z-index: 10;
+    }
+
+    .frame-slot {
+      position: relative;
+      background: rgba(20, 40, 25, 0.8);
+      border: 2px dashed #8b6f47;
+      border-radius: 0px;
+      transition: all 0.3s ease;
+    }
+
+    .frame-slot:hover {
+      border-color: #d4a574;
+      background: rgba(30, 50, 35, 0.8);
+    }
+
+    .frame-slot.filled {
+      border: 2px solid #5ecc71;
+      background: rgba(20, 40, 25, 0.3);
+      border-radius: 0;
+    }
+
+    .frame-slot.hover-target {
+      background: rgba(94, 204, 113, 0.2);
+      border-color: #5ecc71;
+    }
+
+    .complete-image-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 5000;
+      animation: slideInScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .complete-image-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    #continueBtn.overlay-active {
+      position: fixed;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5001 !important;
+    }
+
+    @keyframes slideInScale {
+      from {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes confetti {
+      0% {
+        transform: translateY(0) rotateZ(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100px) rotateZ(720deg);
+        opacity: 0;
+      }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #d4a574;
+      animation: confetti 2s ease-out forwards;
+      pointer-events: none;
+    }
+
+    /* FASE 3 - Convite */
+    .phase-3 {
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .invitation {
+      background: rgba(212, 165, 116, 0.1);
+      border: 2px solid #d4a574;
+      border-radius: 8px;
+      padding: 30px;
+      margin: 15px 0;
+      backdrop-filter: blur(5px);
+    }
+
+    .invitation h2 {
+      font-size: 1.5em;
+      color: #d4a574;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .invitation p {
+      font-size: 0.95em;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .highlight {
+      color: #a0845f;
+      font-weight: bold;
+    }
+
+    .info-box {
+      background: rgba(45, 61, 46, 0.6);
+      border-left: 4px solid #8b6f47;
+      padding: 12px 15px;
+      margin: 12px 0;
+      border-radius: 4px;
+      text-align: left;
+      font-size: 0.9em;
+    }
+
+    .info-box strong {
+      color: #d4a574;
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    /* FASE 3 - Melhorado */
+    .phase-3.active {
+      display: block !important;
+      position: relative;
+    }
+
+    .phase-3 h1 {
+      color: #d4a574;
+      letter-spacing: 3px;
+    }
+
+    .phase-3-content {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+      justify-content: center;
+      margin: 30px 0;
+      position: relative;
+    }
+
+    .video-placeholder {
+      position: fixed;
+      width: 150px;
+      height: 250px;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #c9b896;
+      font-size: 0.8em;
       text-align: center;
-      font-weight: 600;
+      padding: 10px;
+      z-index: -1;
     }
 
-    .wrong {
-      display: none;
-      margin-top: 16px;
-      padding: 12px;
-      border: 1px solid #fca5a5;
-      border-radius: 10px;
-      background: #fef2f2;
-      color: #dc2626;
-      text-align: center;
-      font-weight: 600;
+    .video-left {
+      left: 50px;
+      top: 50%;
+      transform: translateY(-50%);
     }
 
-    /* Secao pronta para futura expansao com puzzles, imagens ou video. */
-    .future-content {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px dashed var(--border);
-      font-size: 0.95rem;
-      color: #4b5563;
+    .video-right {
+      right: 50px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* Responsivo */
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+        max-height: 95vh;
+      }
+
+      h1 {
+        font-size: 1.8em;
+        margin-bottom: 10px;
+      }
+
+      p {
+        font-size: 0.95em;
+      }
+
+      .button-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      button {
+        width: 100%;
+        padding: 10px 20px;
+        font-size: 0.9em;
+      }
+
+      .puzzle-wrapper {
+        min-height: auto;
+        height: auto;
+        margin: 10px 0;
+      }
+
+      .puzzle-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .invitation {
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 2em !important;
+        margin-bottom: 8px !important;
+      }
+      
+      p {
+        font-size: 0.9em !important;
+        margin-bottom: 8px !important;
+      }
+
+      /* Fase 3 - Mobile */
+      .phase-3 > div:nth-child(3) {
+        flex-direction: column !important;
+      }
+
+      .phase-3 > div:nth-child(3) > div {
+        display: none !important;
+      }
+
+      .phase-3 > div:nth-child(3) > .invitation {
+        display: block !important;
+        max-width: 100% !important;
+      }
+    }
+
+    @media (max-width: 400px) {
+      h1 {
+        font-size: 1.5em;
+      }
+
+      .puzzle-wrapper {
+        min-height: 280px;
+        height: auto;
+      }
     }
   </style>
 </head>
 <body>
   <main class="container">
-    <h1>Convite para os desfeitos</h1>
-    <p id="questionText">O Barrocas é desfeito?</p>
+    <div class="content">
 
-    <div class="form" id="questionButtons">
-      <button id="noButton" type="button">Não</button>
-      <button id="yesButton" type="button">Sim</button>
+      <!-- FASE 1: Enigma -->
+      <div class="phase active phase-1" id="phase1">
+        <h1>🔮 Parabéns! 🔮</h1>
+        <div class="divider"></div>
+        <div class="enigma-icon">✨</div>
+        <p>Desvendaste o primeiro enigma!</p>
+        <p class="text-secondary">Agora resolve o puzzle para passares à próxima fase...</p>
+        <div class="button-group">
+          <button id="continueBtn1">Continuar →</button>
+        </div>
+      </div>
+
+      <!-- FASE 2: Puzzle -->
+      <div class="phase phase-2" id="phase2">
+        <h1>🧩 Puzzle Misterioso 🧩</h1>
+        <div class="divider"></div>
+        <p>Arrasta as peças para a moldura para completar a imagem...</p>
+        
+        <div class="puzzle-wrapper">
+          <!-- Peças soltas no fundo -->
+          <div class="loose-pieces" id="loosePieces"></div>
+          
+          <!-- Moldura central -->
+          <div class="frame-wrapper">
+            <div class="frame" id="frame"></div>
+            <div id="completeImageOverlay" class="complete-image-overlay" style="display: none;">
+              <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; padding: 20px;">
+                <img id="completeImage" src="" alt="Imagem Completa" style="width: 95%; height: 85%; object-fit: stretch; border-radius: 8px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);">
+                <p id="completeMessage" style="position: absolute; top: 30px; color: #5ecc71; font-size: 2em; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9); font-weight: bold; letter-spacing: 2px; text-align: center; padding: 0 20px; z-index: 10;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-secondary" id="puzzleStatus">Coloca todas as peças no lugar correto...</p>
+        
+        <div class="button-group">
+          <button onclick="previousPhase(1)">← Voltar</button>
+          <button id="continueBtn" onclick="nextPhase(3)" style="opacity: 0.5; cursor: not-allowed;" disabled>Continuar →</button>
+        </div>
+      </div>
+
+      <!-- FASE 3: Convite -->
+      <div class="phase phase-3" id="phase3">
+        <h1 style="font-size: 3.5em; margin-bottom: 10px;">🏕️ Convite Oficial 🏕️</h1>
+        <p style="font-size: 2em; font-weight: bold; margin-bottom: 30px; letter-spacing: 2px; color: #d4a574;">CAMPO DE LAMBRETAS</p>
+        <div class="divider"></div>
+
+        <!-- VÍDEOS NOS LADOS (fora do container) -->
+        <div class="video-placeholder video-left">
+          🎬 TikTok Motinha (Esquerda)
+        </div>
+        <div class="video-placeholder video-right">
+          🎬 TikTok Motinha (Direita)
+        </div>
+
+        <!-- BLOCO CENTRAL DE INFORMAÇÃO -->
+        <div class="phase-3-content">
+          <div class="invitation" style="max-width: 450px; padding: 30px;">
+            <h2 style="font-size: 2em; margin-bottom: 20px; color: #d4a574;">Estás Convidado! 🎉</h2>
+            
+            <p style="margin-bottom: 20px; line-height: 1.8;">Querido animador, é com grande honra que te convidamos para <span class="highlight" style="font-size: 1.1em;">animar o Escalão: Lambretas</span>!</p>
+            
+            <div class="info-box" style="margin: 15px 0;">
+              <strong>📅 Data:</strong>
+              <span>27 de julho a 5 de agosto</span>
+            </div>
+
+            <div class="info-box" style="margin: 15px 0;">
+              <strong>📍 Local:</strong>
+              <span>Algures no meio do mato</span>
+            </div>
+
+            <div style="background: rgba(212, 165, 116, 0.1); border: 2px solid #8b6f47; padding: 15px; border-radius: 6px; margin: 20px 0; font-size: 0.9em;">
+              <p style="margin-bottom: 10px;"><strong style="color: #d4a574;">👥 EQUIPA:</strong></p>
+              <p style="margin: 8px 0;">🎯 Diretor: <span style="font-weight: bold; color: #d4a574;">Barrocas</span></p>
+              <p style="margin: 8px 0;">📋 Adjunto: <span style="font-weight: bold; color: #d4a574;">Rui Duarte</span></p>
+              <p style="margin: 8px 0;">💚 Mamã: <span style="font-weight: bold; color: #d4a574;">Beatriz Mesquita</span></p>
+            </div>
+
+            <div style="background: rgba(212, 165, 116, 0.15); border: 2px solid #d4a574; padding: 15px; border-radius: 6px; margin: 20px 0;">
+              <p style="font-weight: bold; margin-bottom: 8px; color: #d4a574;">✅ PARA ACEITARES O CONVITE:</p>
+              <p style="margin: 10px 0; font-size: 1em;"><strong>Envia o teu TikTok da motinha para (super obrigatório):</strong></p>
+              <p style="font-size: 1.3em; font-weight: bold; margin: 10px 0; color: #d4a574;">📱 933948755</p>
+            </div>
+          </div>
+        </div>
+
+        <p style="margin-top: 30px; margin-bottom: 20px; font-style: italic; color: #c9b896;">Este é um convite exclusivo e pessoal. Mantém-se secreto entre nós... 🤫</p>
+
+        <div class="button-group">
+          <button onclick="previousPhase(2)">← Voltar</button>
+          <button onclick="location.reload()">Recomeçar ↻</button>
+        </div>
+      </div>
+
     </div>
-
-    <div id="successMessage" class="success" role="status" aria-live="polite">
-      Parabéns! Foste convidado para animar Lambretas 🔥
-    </div>
-
-    <div id="wrongMessage" class="wrong" role="status" aria-live="polite">
-      Resposta errada, tenta outra vez!
-    </div>
-
-    <section class="future-content" id="futureContent">
-      Área reservada para expansão: aqui podes adicionar puzzles, imagens ou vídeo.
-    </section>
   </main>
 
   <script>
-    const noButton = document.getElementById('noButton');
-    const yesButton = document.getElementById('yesButton');
-    const successMessage = document.getElementById('successMessage');
-    const wrongMessage = document.getElementById('wrongMessage');
+    // Configuração do Puzzle com Imagem
+    const IMAGE_PATH = 'WhatsApp Image 2026-03-18 at 15.36.48.jpeg';
+    const GRID_COLS = 3;
+    const GRID_ROWS = 5;
+    const TOTAL_PIECES = GRID_COLS * GRID_ROWS;
+    const IDEAL_PIECE_SIZE = 85; // pixels por peça
+    const MAX_FRAME_WIDTH = window.innerWidth - 100;
 
-    yesButton.addEventListener('click', function() {
-      successMessage.style.display = 'block';
-      wrongMessage.style.display = 'none';
-    });
+    let puzzleImage = null;
+    let puzzlePieces = [];
+    let placedPieces = new Set();
+    let piecePositions = new Map(); // Armazenar posições das peças soltas
+    let draggedPiece = null;
+    let draggedDiv = null;
+    let offsetX = 0;
+    let offsetY = 0;
 
-    noButton.addEventListener('click', function() {
-      wrongMessage.style.display = 'block';
-      successMessage.style.display = 'none';
+    // Definir nextPhase no topo para garantir que está acessível
+    function nextPhase(phaseNumber) {
+      // Hide all phases
+      document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+      // Show target phase
+      document.getElementById('phase' + phaseNumber).classList.add('active');
+
+      // Remover classe de overlay do botão quando mudar de fase
+      const continueBtn = document.getElementById('continueBtn');
+      if (continueBtn) {
+        continueBtn.classList.remove('overlay-active');
+      }
+
+      if (phaseNumber === 2) {
+        setTimeout(() => loadImageAndCreatePuzzle(), 300);
+      }
+    }
+
+    function loadImageAndCreatePuzzle() {
+      const img = new Image();
+      img.onload = function() {
+        puzzleImage = img;
+        createPuzzlePieces();
+        renderPuzzle();
+      };
+      img.onerror = function() {
+        createTestPuzzle(); // Fallback com cores
+      };
+      img.src = IMAGE_PATH;
+    }
+
+    function createTestPuzzle() {
+      // Criar peças de teste com cores e padrões
+      const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2'];
+      
+      puzzlePieces = [];
+      placedPieces.clear();
+
+      for (let row = 0; row < GRID_ROWS; row++) {
+        for (let col = 0; col < GRID_COLS; col++) {
+          const index = row * GRID_COLS + col;
+          const color = colors[index % colors.length];
+
+          const piece = {
+            id: index,
+            correctPosition: index,
+            row: row,
+            col: col,
+            width: 100,
+            height: 100,
+            testColor: color,
+            testNumber: index + 1,
+            x: 0,
+            y: 0
+          };
+
+          puzzlePieces.push(piece);
+        }
+      }
+
+      // Embaralhar
+      puzzlePieces.sort(() => Math.random() - 0.5);
+      
+      // Renderizar imediatamente
+      setTimeout(() => {
+        renderPuzzle();
+      }, 100);
+    }
+
+    function createPuzzlePieces() {
+      let imgWidth = puzzleImage.width;
+      let imgHeight = puzzleImage.height;
+      
+      // Redimensionar a imagem para tamanho ideal se necessário
+      const maxFrameWidth = IDEAL_PIECE_SIZE * GRID_COLS;
+      const maxFrameHeight = IDEAL_PIECE_SIZE * GRID_ROWS;
+      
+      let scale = 1;
+      if (imgWidth > maxFrameWidth) {
+        scale = maxFrameWidth / imgWidth;
+      }
+      if (imgHeight > maxFrameHeight * scale) {
+        scale = maxFrameHeight / imgHeight;
+      }
+      
+      // Aplicar escala
+      imgWidth = Math.round(imgWidth * scale);
+      imgHeight = Math.round(imgHeight * scale);
+      
+      // Se for muito pequeno, aumentar
+      if (imgWidth < maxFrameWidth * 0.6) {
+        scale = maxFrameWidth / puzzleImage.width;
+        imgWidth = Math.round(puzzleImage.width * scale);
+        imgHeight = Math.round(puzzleImage.height * scale);
+      }
+
+      // IMPORTANTE: Arredondar para grid perfeita
+      let pieceWidth = Math.round(imgWidth / GRID_COLS);
+      let pieceHeight = Math.round(imgHeight / GRID_ROWS);
+      
+      // Ajustar dimensões finais da imagem para ser divisível exatamente
+      const finalImgWidth = pieceWidth * GRID_COLS;
+      const finalImgHeight = pieceHeight * GRID_ROWS;
+
+      puzzlePieces = [];
+      placedPieces.clear();
+
+      for (let row = 0; row < GRID_ROWS; row++) {
+        for (let col = 0; col < GRID_COLS; col++) {
+          const index = row * GRID_COLS + col;
+
+          const piece = {
+            id: index,
+            correctPosition: index,
+            row: row,
+            col: col,
+            width: pieceWidth,
+            height: pieceHeight,
+            bgPositionX: -col * pieceWidth,
+            bgPositionY: -row * pieceHeight,
+            bgSizeWidth: finalImgWidth,
+            bgSizeHeight: finalImgHeight,
+            x: 0,
+            y: 0
+          };
+
+          puzzlePieces.push(piece);
+        }
+      }
+
+      // Embaralhar as peças
+      puzzlePieces.sort(() => Math.random() - 0.5);
+    }
+
+    function renderPuzzle() {
+      const loosePieces = document.getElementById('loosePieces');
+      loosePieces.innerHTML = '';
+
+      const wrapper = document.querySelector('.puzzle-wrapper');
+      if (!wrapper) {
+        return;
+      }
+
+      const wrapperRect = wrapper.getBoundingClientRect();
+      let wrapperWidth = wrapperRect.width;
+      let wrapperHeight = wrapperRect.height;
+
+      // Fallback
+      if (!wrapperWidth) wrapperWidth = wrapper.offsetWidth;
+      if (!wrapperHeight) wrapperHeight = wrapper.offsetHeight;
+
+      if (puzzlePieces.length === 0) {
+        return;
+      }
+
+      // Reservar espaço real para a moldura no fluxo para não sobrepor o texto.
+      const pieceWidth = puzzlePieces[0].width || 100;
+      const pieceHeight = puzzlePieces[0].height || 100;
+      wrapper.style.minHeight = (pieceHeight * GRID_ROWS + 30) + 'px';
+
+      // Distribuir as peças aleatoriamente pelo ecrã
+      puzzlePieces.forEach((piece, index) => {
+        const div = document.createElement('div');
+        div.className = 'puzzle-piece';
+        div.dataset.pieceId = piece.id;
+        
+        if (placedPieces.has(piece.id)) {
+          div.classList.add('locked');
+          div.style.display = 'none';
+          return;
+        }
+
+        div.style.width = piece.width + 'px';
+        div.style.height = piece.height + 'px';
+
+        // Renderizar peça: testColor para peças de teste, ou background-image para imagem real
+        if (piece.testColor) {
+          // Peça de teste - usar background-color com texto
+          div.style.backgroundColor = piece.testColor;
+          div.style.display = 'flex';
+          div.style.alignItems = 'center';
+          div.style.justifyContent = 'center';
+          div.style.fontSize = '32px';
+          div.style.fontWeight = 'bold';
+          div.style.color = '#fff';
+          div.textContent = piece.testNumber;
+          div.style.outline = '2px solid #8b6f47';
+        } else {
+          // Peça de imagem real - usar background-image
+          div.style.backgroundImage = `url('${IMAGE_PATH}')`;
+          div.style.backgroundSize = `${piece.bgSizeWidth}px ${piece.bgSizeHeight}px`;
+          div.style.backgroundPosition = `${piece.bgPositionX}px ${piece.bgPositionY}px`;
+          div.style.backgroundRepeat = 'no-repeat';
+          div.style.outline = '1px solid rgba(255, 255, 255, 0.5)';
+        }
+        
+        div.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+
+        // Reutilizar posição anteriormente guardada, ou gerar nova
+        let viewportX, viewportY;
+        
+        if (piecePositions.has(piece.id)) {
+          // Reutilizar posição anterior
+          const savedPos = piecePositions.get(piece.id);
+          viewportX = savedPos.x;
+          viewportY = savedPos.y;
+        } else {
+          // Gerar posição aleatória nova
+          const viewportWidth = window.innerWidth;
+          const viewportHeight = window.innerHeight;
+          
+          const frameWidth = puzzlePieces[0].width || 100;
+          const frameHeight = puzzlePieces[0].height || 100;
+          
+          // Calcular posição da moldura em viewport
+          const frameCenterX = wrapperRect.left + wrapperRect.width / 2;
+          const frameCenterY = wrapperRect.top + wrapperRect.height / 2;
+          
+          // Dividir o viewport em regiões (evitando moldura)
+          const regions = [
+            { x: [0, frameCenterX - frameWidth * GRID_COLS / 2 - 100], y: [0, viewportHeight] }, // Esquerda
+            { x: [frameCenterX + frameWidth * GRID_COLS / 2 + 100, viewportWidth], y: [0, viewportHeight] }, // Direita
+            { x: [0, viewportWidth], y: [0, frameCenterY - frameHeight * GRID_ROWS / 2 - 100] }, // Top
+            { x: [0, viewportWidth], y: [frameCenterY + frameHeight * GRID_ROWS / 2 + 100, viewportHeight] } // Bottom
+          ];
+          
+          // Escolher região aleatória
+          const region = regions[Math.floor(Math.random() * regions.length)];
+          
+          const maxX = Math.max(10, region.x[1] - region.x[0] - piece.width);
+          const maxY = Math.max(10, region.y[1] - region.y[0] - piece.height);
+          
+          viewportX = region.x[0] + Math.random() * maxX;
+          viewportY = region.y[0] + Math.random() * maxY;
+          
+          // Garantir que não sai dos limites do viewport
+          viewportX = Math.max(0, Math.min(viewportX, viewportWidth - piece.width));
+          viewportY = Math.max(0, Math.min(viewportY, viewportHeight - piece.height));
+          
+          // Guardar posição para futuras renderizações
+          piecePositions.set(piece.id, { x: viewportX, y: viewportY });
+        }
+
+        div.style.left = viewportX + 'px';
+        div.style.top = viewportY + 'px';
+
+        div.addEventListener('mousedown', (e) => startDrag(e, piece, div));
+        div.addEventListener('touchstart', (e) => startDrag(e, piece, div));
+
+        loosePieces.appendChild(div);
+      });
+
+      renderFrame();
+    }
+
+    function renderFrame() {
+      if (puzzlePieces.length === 0) {
+        return;
+      }
+
+      const frame = document.getElementById('frame');
+      const pieceWidth = puzzlePieces[0].width || 100;
+      const pieceHeight = puzzlePieces[0].height || 100;
+
+      frame.style.gridTemplateColumns = `repeat(${GRID_COLS}, ${pieceWidth}px)`;
+      frame.style.gridTemplateRows = `repeat(${GRID_ROWS}, ${pieceHeight}px)`;
+      frame.innerHTML = '';
+
+      for (let i = 0; i < TOTAL_PIECES; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'frame-slot';
+        slot.dataset.slotId = i;
+        slot.style.width = pieceWidth + 'px';
+        slot.style.height = pieceHeight + 'px';
+
+        if (placedPieces.has(i)) {
+          slot.classList.add('filled');
+          const piece = puzzlePieces.find(p => p.id === i);
+          
+          if (piece.testColor) {
+            // Peça de teste
+            slot.style.backgroundColor = piece.testColor;
+            slot.style.display = 'flex';
+            slot.style.alignItems = 'center';
+            slot.style.justifyContent = 'center';
+            slot.style.fontSize = '24px';
+            slot.style.fontWeight = 'bold';
+            slot.style.color = '#fff';
+            slot.textContent = piece.testNumber;
+          } else {
+            // Peça de imagem real
+            slot.style.backgroundImage = `url('${IMAGE_PATH}')`;
+            slot.style.backgroundSize = `${piece.bgSizeWidth}px ${piece.bgSizeHeight}px`;
+            slot.style.backgroundPosition = `${piece.bgPositionX}px ${piece.bgPositionY}px`;
+            slot.style.backgroundRepeat = 'no-repeat';
+          }
+        }
+
+        frame.appendChild(slot);
+      }
+    }
+
+    function startDrag(e, piece, div) {
+      if (placedPieces.has(piece.id)) return;
+
+      e.preventDefault();
+      draggedPiece = piece;
+      draggedDiv = div;
+      div.classList.add('dragging');
+      div.style.zIndex = '9999';
+
+      const rect = div.getBoundingClientRect();
+
+      offsetX = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+      offsetY = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+
+      let animationId = null;
+
+      function movePiece(event) {
+        if (!draggedPiece) return;
+        
+        const clientX = event.touches ? event.touches[0].clientX : event.clientX;
+        const clientY = event.touches ? event.touches[0].clientY : event.clientY;
+        
+        // Usar requestAnimationFrame para smooth movement
+        if (animationId) cancelAnimationFrame(animationId);
+        animationId = requestAnimationFrame(() => {
+          // Com fixed positioning, coordenadas são diretas do viewport
+          const x = clientX - offsetX;
+          const y = clientY - offsetY;
+          
+          div.style.left = x + 'px';
+          div.style.top = y + 'px';
+          
+          // Verificar proximidade com slots e adicionar hover visual apenas ao mais próximo
+          const frameSlots = document.querySelectorAll('.frame-slot');
+          let closestSlot = null;
+          let closestDistance = Infinity;
+          
+          const pieceRect = div.getBoundingClientRect();
+          const pieceCenterX = pieceRect.left + pieceRect.width / 2;
+          const pieceCenterY = pieceRect.top + pieceRect.height / 2;
+          
+          frameSlots.forEach(slot => {
+            if (slot.classList.contains('filled')) return;
+            
+            const slotRect = slot.getBoundingClientRect();
+            
+            // Calcular distância entre centros
+            const slotCenterX = slotRect.left + slotRect.width / 2;
+            const slotCenterY = slotRect.top + slotRect.height / 2;
+            
+            const distance = Math.sqrt(
+              Math.pow(slotCenterX - pieceCenterX, 2) + 
+              Math.pow(slotCenterY - pieceCenterY, 2)
+            );
+            
+            // Encontrar o slot mais próximo
+            if (distance < closestDistance) {
+              closestDistance = distance;
+              closestSlot = slot;
+            }
+          });
+          
+          // Remover hover de todos e adicionar apenas ao mais próximo se estiver perto o suficiente
+          frameSlots.forEach(slot => {
+            slot.classList.remove('hover-target');
+          });
+          
+          if (closestSlot && closestDistance < 100) {
+            closestSlot.classList.add('hover-target');
+          }
+        });
+      }
+
+      function stopDrag(event) {
+        if (animationId) cancelAnimationFrame(animationId);
+        
+        div.classList.remove('dragging');
+        
+        // Procurar slot mais próximo
+        const frameSlots = document.querySelectorAll('.frame-slot');
+        let closestSlot = null;
+        let closestDistance = Infinity;
+        
+        const dragRect = div.getBoundingClientRect();
+        const dragCenterX = dragRect.left + dragRect.width / 2;
+        const dragCenterY = dragRect.top + dragRect.height / 2;
+        
+        frameSlots.forEach(slot => {
+          if (slot.classList.contains('filled')) return;
+          
+          const slotRect = slot.getBoundingClientRect();
+          const slotCenterX = slotRect.left + slotRect.width / 2;
+          const slotCenterY = slotRect.top + slotRect.height / 2;
+          
+          const distance = Math.sqrt(
+            Math.pow(slotCenterX - dragCenterX, 2) + 
+            Math.pow(slotCenterY - dragCenterY, 2)
+          );
+          
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestSlot = slot;
+          }
+        });
+        
+        // Se slot está suficientemente perto, fazer drop
+        if (closestSlot && closestDistance < 100) {
+          const slotId = parseInt(closestSlot.dataset.slotId);
+          dropPiece(slotId);
+        } else {
+          // Se não foi drop correto, guardar a nova posição
+          if (draggedPiece) {
+            piecePositions.set(draggedPiece.id, { 
+              x: parseFloat(div.style.left), 
+              y: parseFloat(div.style.top) 
+            });
+          }
+        }
+        
+        // Remover hover de todos os slots
+        frameSlots.forEach(slot => {
+          slot.classList.remove('hover-target');
+        });
+        
+        document.removeEventListener('mousemove', movePiece);
+        document.removeEventListener('touchmove', movePiece);
+        document.removeEventListener('mouseup', stopDrag);
+        document.removeEventListener('touchend', stopDrag);
+        
+        // Delay para permitir que dropPiece termine seus timeouts
+        setTimeout(() => {
+          draggedPiece = null;
+          draggedDiv = null;
+        }, 350);
+      }
+
+      document.addEventListener('mousemove', movePiece);
+      document.addEventListener('touchmove', movePiece);
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchend', stopDrag);
+    }
+
+    function dropPiece(slotId) {
+      if (!draggedPiece || placedPieces.has(draggedPiece.id)) return;
+
+      if (draggedPiece.id === slotId) {
+        
+        // Animar peça até o slot
+        const slot = document.querySelector(`[data-slotId="${slotId}"]`);
+        if (slot && draggedDiv) {
+          const slotRect = slot.getBoundingClientRect();
+          const pieceRect = draggedDiv.getBoundingClientRect();
+          
+          // Calcular distância
+          const dX = slotRect.left - pieceRect.left;
+          const dY = slotRect.top - pieceRect.top;
+          
+          // Animar movimento para o slot
+          if (draggedDiv) {
+            draggedDiv.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+            draggedDiv.style.transform = `translate(${dX}px, ${dY}px)`;
+          }
+          
+          setTimeout(() => {
+            if (draggedDiv) {
+              draggedDiv.style.transition = 'none';
+              draggedDiv.style.transform = 'none';
+            }
+            placedPieces.add(draggedPiece.id);
+            renderPuzzle();
+            updatePuzzleStatus();
+
+            if (placedPieces.size === TOTAL_PIECES) {
+              showCompleteImage();
+            }
+          }, 300);
+        } else {
+          placedPieces.add(draggedPiece.id);
+          renderPuzzle();
+          updatePuzzleStatus();
+
+          if (placedPieces.size === TOTAL_PIECES) {
+            showCompleteImage();
+          }
+        }
+      } else {
+        // Feedback visual de erro - peça retorna à posição anterior
+        if (draggedDiv) {
+          draggedDiv.style.zIndex = '25'; // Garantir que fica acima da moldura
+          draggedDiv.style.transition = 'all 0.2s ease-out';
+          draggedDiv.style.transform = 'scale(0.95)';
+          
+          setTimeout(() => {
+            if (draggedDiv) {
+              draggedDiv.style.transition = 'none';
+              draggedDiv.style.transform = 'scale(1)';
+              draggedDiv.style.zIndex = '25';
+            }
+          }, 200);
+        }
+        
+        // Flash do slot de erro
+        const slot = document.querySelector(`[data-slotId="${slotId}"]`);
+        if (slot) {
+          slot.style.animation = 'none';
+          setTimeout(() => {
+            if (slot) {
+              slot.style.animation = 'pulse 0.5s ease-in-out';
+            }
+          }, 10);
+        }
+      }
+    }
+
+    function updatePuzzleStatus() {
+      const status = document.getElementById('puzzleStatus');
+      const completed = placedPieces.size;
+      const total = TOTAL_PIECES;
+
+      status.textContent = `Progresso: ${completed}/${total} peças colocadas`;
+
+      if (completed === total) {
+        status.textContent = '✨ Puzzle completo! Parabéns! ✨';
+        status.style.color = '#5ecc71';
+      }
+    }
+
+    function showCompleteImage() {
+      // Criar imagem completa
+      const overlay = document.getElementById('completeImageOverlay');
+      const completeImg = document.getElementById('completeImage');
+      const completeMessage = document.getElementById('completeMessage');
+      
+      completeImg.src = IMAGE_PATH;
+      completeMessage.textContent = '🎉 Parabéns, resolveste o puzzle do homem desfeito! 🎉';
+      overlay.style.display = 'flex';
+      overlay.style.alignItems = 'center';
+      overlay.style.justifyContent = 'center';
+
+      // Criar efeito de confetti
+      createConfetti();
+
+      // Ativar botão de continuar
+      setTimeout(() => {
+        const continueBtn = document.getElementById('continueBtn');
+        continueBtn.style.opacity = '1';
+        continueBtn.style.cursor = 'pointer';
+        continueBtn.disabled = false;
+        continueBtn.classList.add('overlay-active');
+      }, 800);
+    }
+
+    function createConfetti() {
+      for (let i = 0; i < 30; i++) {
+        const confetti = document.createElement('div');
+        confetti.className = 'confetti';
+        confetti.style.left = Math.random() * window.innerWidth + 'px';
+        confetti.style.top = Math.random() * window.innerHeight + 'px';
+        confetti.style.background = ['#d4a574', '#8b6f47', '#5ecc71', '#e8dcc8'][Math.floor(Math.random() * 4)];
+        confetti.style.width = (Math.random() * 6 + 4) + 'px';
+        confetti.style.height = confetti.style.width;
+        confetti.style.borderRadius = '50%';
+        document.body.appendChild(confetti);
+
+        setTimeout(() => confetti.remove(), 2000);
+      }
+    }
+
+    function previousPhase(phaseNumber) {
+      // Hide all phases
+      document.querySelectorAll('.phase').forEach(p => p.classList.remove('active'));
+      // Show target phase
+      document.getElementById('phase' + phaseNumber).classList.add('active');
+      
+      // Remover classe de overlay do botão quando mudar de fase
+      const continueBtn = document.getElementById('continueBtn');
+      if (continueBtn) {
+        continueBtn.classList.remove('overlay-active');
+      }
+      
+      // Se voltando ao overlay, ocultá-lo
+      const overlay = document.getElementById('completeImageOverlay');
+      if (overlay) {
+        overlay.style.display = 'none';
+      }
+    }
+
+    // Inicializar
+    window.addEventListener('load', () => {
+      // Primeira fase já activa
+      
+      // Event listener para botão Continuar (Fase 1)
+      const continueBtn1 = document.getElementById('continueBtn1');
+      if (continueBtn1) {
+        continueBtn1.addEventListener('click', () => nextPhase(2));
+      }
     });
   </script>
 </body>
