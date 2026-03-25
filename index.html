@@ -19,18 +19,18 @@
       align-items: center;
       background: linear-gradient(135deg, #1a3a2a 0%, #2d5a3d 50%, #3d6e4f 100%);
       color: #e8dcc8;
-      padding: 50px;
+      padding: 20px;
       overflow-x: hidden;
     }
 
     .container {
-      width: 75%;
+      width: 90%;
       min-height: 100vh;
-      max-width: 800px;
+      max-width: 850px;
       background: linear-gradient(180deg, #2d3d2e 0%, #1f2920 100%);
       border: 3px solid #8b6f47;
       border-radius: 8px;
-      padding: 30px 40px;
+      padding: 25px 25px;
       text-align: center;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(232, 220, 200, 0.1);
       animation: fadeIn 1.2s ease-in-out;
@@ -101,10 +101,11 @@
     h1 {
       font-size: 3.2em;
       color: #d4a574;
-      margin-bottom: 25px;
+      margin-bottom: 15px;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
       letter-spacing: 2px;
       animation: glow 3s ease-in-out infinite;
+      line-height: 1.2;
     }
 
     .divider {
@@ -116,17 +117,19 @@
 
     p {
       font-size: 1.5em;
-      line-height: 1.8;
-      margin-bottom: 25px;
+      line-height: 1.6;
+      margin-bottom: 18px;
       color: #e8dcc8;
       letter-spacing: 0.5px;
+      word-break: break-word;
     }
 
     .text-secondary {
       font-size: 1.3em;
       color: #c9b896;
-      margin-top: 20px;
-      margin-bottom: 40px;
+      margin-top: 12px;
+      margin-bottom: 25px;
+      line-height: 1.5;
     }
 
     .button-group {
@@ -471,10 +474,94 @@
     }
 
     /* Responsivo */
-    @media (max-width: 600px) {
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+
       .container {
-        padding: 30px 20px;
-        max-height: 95vh;
+        width: 95%;
+        padding: 20px 18px;
+        max-width: 100%;
+      }
+
+      h1 {
+        font-size: 2.2em;
+        margin-bottom: 12px;
+      }
+
+      p {
+        font-size: 1.1em;
+        margin-bottom: 14px;
+        line-height: 1.5;
+      }
+
+      .text-secondary {
+        font-size: 1.05em;
+        margin-top: 10px;
+        margin-bottom: 20px;
+      }
+
+      button {
+        padding: 10px 20px;
+        font-size: 0.95em;
+      }
+
+      .button-group {
+        gap: 10px;
+        margin: 25px 0;
+      }
+
+      .invitation {
+        padding: 22px;
+      }
+
+      .invitation h2 {
+        font-size: 1.4em;
+        margin-bottom: 12px;
+      }
+
+      .invitation p {
+        font-size: 1em;
+        margin-bottom: 12px;
+      }
+
+      .info-box {
+        font-size: 0.95em;
+        padding: 11px 14px;
+        margin: 11px 0;
+      }
+
+      .videos-container {
+        gap: 18px;
+        margin-top: 25px;
+      }
+
+      .video-placeholder {
+        width: 155px;
+        height: 235px;
+      }
+
+      .phase-3 h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      .phase-3 > p:nth-of-type(2) {
+        font-size: 1.3em;
+        margin-bottom: 15px;
+      }
+    }
+
+    @media (max-width: 500px) {
+      body {
+        padding: 10px;
+      }
+
+      .container {
+        width: 100%;
+        padding: 15px 12px;
+        border: 2px solid #8b6f47;
       }
 
       h1 {
@@ -483,17 +570,32 @@
       }
 
       p {
+        font-size: 1em;
+        margin-bottom: 12px;
+        line-height: 1.4;
+        word-spacing: 0.1em;
+      }
+
+      .text-secondary {
         font-size: 0.95em;
+        margin-top: 8px;
+        margin-bottom: 15px;
+        line-height: 1.4;
+      }
+
+      .divider {
+        margin: 8px auto 12px;
       }
 
       .button-group {
         flex-direction: column;
-        gap: 10px;
+        gap: 8px;
+        margin: 20px 0;
       }
 
       button {
         width: 100%;
-        padding: 10px 20px;
+        padding: 9px 18px;
         font-size: 0.9em;
       }
 
@@ -503,76 +605,99 @@
         margin: 10px 0;
       }
 
-      .puzzle-grid {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
-      .invitation {
-        padding: 20px;
-      }
-      
-      h1 {
-        font-size: 2em !important;
-        margin-bottom: 8px !important;
-      }
-      
-      p {
-        font-size: 0.9em !important;
-        margin-bottom: 8px !important;
-      }
-
-      /* Fase 3 - Mobile */
-      .phase-3-content {
-        flex-direction: column !important;
-      }
-
       .phase-3 h1 {
-        font-size: 1.5em !important;
-        margin-bottom: 5px !important;
+        font-size: 1.6em !important;
+        margin-bottom: 8px !important;
+        letter-spacing: 1px;
       }
 
       .phase-3 > p:nth-of-type(2) {
-        font-size: 1.2em !important;
-        margin-bottom: 10px !important;
+        font-size: 1em !important;
+        margin-bottom: 8px !important;
       }
 
       .invitation {
         max-width: 100% !important;
-        padding: 15px !important;
+        padding: 12px !important;
+        margin: 12px 0 !important;
       }
 
       .invitation h2 {
-        font-size: 1.3em !important;
-        margin-bottom: 10px !important;
+        font-size: 1.15em !important;
+        margin-bottom: 8px !important;
+      }
+
+      .invitation p {
+        font-size: 0.9em !important;
+        margin-bottom: 8px !important;
+        line-height: 1.4 !important;
+      }
+
+      .info-box {
+        font-size: 0.85em !important;
+        padding: 9px 12px !important;
+        margin: 8px 0 !important;
+      }
+
+      .info-box strong {
+        font-size: 0.9em;
       }
 
       .videos-container {
-        gap: 15px;
-        margin-top: 20px;
+        gap: 12px;
+        margin-top: 15px;
         flex-direction: column;
       }
 
       .video-placeholder {
-        width: 100% !important;
-        height: auto !important;
-        max-width: 200px;
+        width: 140px !important;
+        height: 210px !important;
+        max-width: none !important;
         margin: 0 auto;
       }
 
-      .video-placeholder video {
-        width: 100% !important;
-        height: auto !important;
+      .highlight {
+        display: block;
+        font-size: 1.05em;
       }
     }
 
-    @media (max-width: 400px) {
-      h1 {
-        font-size: 1.5em;
+    @media (max-width: 350px) {
+      .container {
+        padding: 12px 10px;
       }
 
-      .puzzle-wrapper {
-        min-height: 280px;
-        height: auto;
+      h1 {
+        font-size: 1.5em;
+        margin-bottom: 8px;
+      }
+
+      p {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+      }
+
+      .text-secondary {
+        font-size: 0.85em;
+        margin-bottom: 12px;
+      }
+
+      button {
+        padding: 8px 16px;
+        font-size: 0.85em;
+      }
+
+      .phase-3 h1 {
+        font-size: 1.3em !important;
+      }
+
+      .invitation {
+        padding: 10px !important;
+      }
+
+      .video-placeholder {
+        width: 120px !important;
+        height: 180px !important;
       }
     }
   </style>
