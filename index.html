@@ -427,17 +427,27 @@
 
     .phase-3-content {
       display: flex;
+      flex-direction: column;
       gap: 30px;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
       margin: 30px 0;
       position: relative;
     }
 
+    .videos-container {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-top: 30px;
+    }
+
     .video-placeholder {
-      position: fixed;
-      width: 150px;
-      height: 250px;
+      position: relative;
+      width: 160px;
+      height: 240px;
       background: transparent;
       display: flex;
       align-items: center;
@@ -446,19 +456,18 @@
       font-size: 0.8em;
       text-align: center;
       padding: 10px;
-      z-index: -1;
+      z-index: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
 
     .video-left {
-      left: 50px;
-      top: 50%;
-      transform: translateY(-50%);
+      transform: none;
     }
 
     .video-right {
-      right: 50px;
-      top: 50%;
-      transform: translateY(-50%);
+      transform: none;
     }
 
     /* Responsivo */
@@ -513,16 +522,21 @@
       }
 
       /* Fase 3 - Mobile */
-      .phase-3 > div:nth-child(3) {
+      .phase-3-content {
         flex-direction: column !important;
       }
 
-      .phase-3 > div:nth-child(3) > div {
-        display: none !important;
+      .videos-container {
+        gap: 15px;
+        margin-top: 20px;
       }
 
-      .phase-3 > div:nth-child(3) > .invitation {
-        display: block !important;
+      .video-placeholder {
+        width: 140px;
+        height: 210px;
+      }
+
+      .invitation {
         max-width: 100% !important;
       }
     }
@@ -591,14 +605,6 @@
         <p style="font-size: 2em; font-weight: bold; margin-bottom: 30px; letter-spacing: 2px; color: #d4a574;">CAMPO DE LAMBRETAS</p>
         <div class="divider"></div>
 
-        <!-- VÍDEOS NOS LADOS (fora do container) -->
-        <div class="video-placeholder video-left">
-          🎬 TikTok Motinha (Esquerda)
-        </div>
-        <div class="video-placeholder video-right">
-          🎬 TikTok Motinha (Direita)
-        </div>
-
         <!-- BLOCO CENTRAL DE INFORMAÇÃO -->
         <div class="phase-3-content">
           <div class="invitation" style="max-width: 450px; padding: 30px;">
@@ -629,9 +635,23 @@
               <p style="font-size: 1.3em; font-weight: bold; margin: 10px 0; color: #d4a574;">📱 933948755</p>
             </div>
           </div>
+
+          <!-- VÍDEOS EM BAIXO -->
+          <div class="videos-container">
+            <div class="video-placeholder video-left" id="videoLeft">
+              <video width="160" height="240" style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover;" id="videoLeftElement">
+                <source src="motinha1.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="video-placeholder video-right" id="videoRight">
+              <video width="160" height="240" style="width: 100%; height: 100%; border-radius: 8px; object-fit: cover;" id="videoRightElement">
+                <source src="motinha2.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
         </div>
 
-        <p style="margin-top: 30px; margin-bottom: 20px; font-style: italic; color: #c9b896;">Este é um convite exclusivo e pessoal. Mantém-se secreto entre nós... 🤫</p>
+        <p style="margin-top: 30px; margin-bottom: 20px; font-style: italic; color: #c9b896;">Esperamos anciosamente que aceites este desafio e nos envies a tua dancinha (OBRIGATÓRIO) 🤫</p>
 
         <div class="button-group">
           <button onclick="previousPhase(2)">← Voltar</button>
@@ -644,7 +664,7 @@
 
   <script>
     // Configuração do Puzzle com Imagem
-    const IMAGE_PATH = 'WhatsApp Image 2026-03-18 at 15.36.48.jpeg';
+    const IMAGE_PATH = './WhatsApp Image 2026-03-18 at 15.36.48.jpeg';
     const GRID_COLS = 3;
     const GRID_ROWS = 5;
     const TOTAL_PIECES = GRID_COLS * GRID_ROWS;
@@ -1249,9 +1269,48 @@
       }
     }
 
+    // Controle de Vídeos em Alternância
+    let currentVideoIndex = 0; // 0 = motinha1 (esquerda), 1 = motinha2 (direita)
+    const videos = [
+      { element: null, name: 'motinha1' },
+      { element: null, name: 'motinha2' }
+    ];
+
+    function initializeVideos() {
+      videos[0].element = document.getElementById('videoLeftElement');
+      videos[1].element = document.getElementById('videoRightElement');
+
+      if (videos[0].element) {
+        videos[0].element.addEventListener('ended', playNextVideo);
+      }
+      if (videos[1].element) {
+        videos[1].element.addEventListener('ended', playNextVideo);
+      }
+
+      // Começar com o primeiro vídeo quando chegar à fase 3
+    }
+
+    function playNextVideo() {
+      // Pausar todos os vídeos
+      videos.forEach(v => {
+        if (v.element) v.element.pause();
+      });
+
+      // Alternar para o próximo
+      currentVideoIndex = (currentVideoIndex + 1) % 2;
+
+      // Reproduzir o vídeo atual
+      if (videos[currentVideoIndex].element) {
+        videos[currentVideoIndex].element.play().catch(err => {
+          console.log('Erro ao reproduzir vídeo:', err);
+        });
+      }
+    }
+
     // Inicializar
     window.addEventListener('load', () => {
       // Primeira fase já activa
+      initializeVideos();
       
       // Event listener para botão Continuar (Fase 1)
       const continueBtn1 = document.getElementById('continueBtn1');
@@ -1259,6 +1318,25 @@
         continueBtn1.addEventListener('click', () => nextPhase(2));
       }
     });
+
+    // Observar quando entra na fase 3 para começar os vídeos
+    const originalNextPhase = nextPhase;
+    function nextPhaseWithVideos(phaseNumber) {
+      originalNextPhase(phaseNumber);
+      
+      if (phaseNumber === 3) {
+        // Aguardar um pouco para certificar que DOM foi atualizado
+        setTimeout(() => {
+          currentVideoIndex = 0; // Reset para começar com o primeiro
+          if (videos[0].element) {
+            videos[0].element.play().catch(err => {
+              console.log('Erro ao iniciar primeiro vídeo:', err);
+            });
+          }
+        }, 500);
+      }
+    }
+    nextPhase = nextPhaseWithVideos;
   </script>
 </body>
 </html>
